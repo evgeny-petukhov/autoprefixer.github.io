@@ -1,11 +1,16 @@
 import store from 'store';
 import langRedirect from './redirect.js';
-import { highlightElement } from './highlight.js';
 import { version as postcssVersion } from 'postcss/package.json'
 import { version as autoprefixerVersion } from 'autoprefixer/package.json'
 import postcss from 'postcss'
 import autoprefixer from 'autoprefixer'
 import { CSS_EXAMPLE, DEFAULT_BROWSERS } from './config';
+import Midas from 'midas'
+
+const midas = new Midas({
+    wrap: false
+})
+
 
 class App {
     constructor() {
@@ -55,10 +60,12 @@ class App {
         postcss([
             autoprefixer(params),
         ])
-            .process(inputCSS)
+            .process(inputCSS, {
+                map: false,
+                stringifier: midas.stringifier,
+            })
             .then(compiled => {
-                this.$rightPane.innerHTML = this.textPrepare(compiled.css);
-                highlightElement(this.$rightPane)
+                this.$rightPane.innerHTML = compiled.css;
             })
             .catch(error => {
                 console.log(error);

@@ -1,0 +1,25 @@
+$selector: #690;
+$property: #905;
+$punctuation: #999;
+$function: #DD4A68;
+$comment: slategray;
+
+.midas__ {
+    &brace,
+    &colon,
+    &semicolon {
+        color: $punctuation;
+    }
+    &selector {
+        color: $selector;
+    }
+    &comment {
+        color: $comment;
+    }
+    &property {
+        color: $property;
+    }
+    &function-name {
+        color: $function;
+    }
+}
